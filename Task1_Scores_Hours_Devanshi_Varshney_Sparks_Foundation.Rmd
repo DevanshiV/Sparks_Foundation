@@ -1,0 +1,66 @@
+---
+title: "Sparks_Foundation_Task1_ScoresHours_Devanshi_Varshney"
+author: "Devanshi Varshney "
+date: "10/05/2021"
+output: pdf_document
+---
+
+# Task 1 Data Science and Business Analytics Internship
+
+```{r warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+df<-read.csv("C:/Users/devan/Downloads/student_scores.csv")
+
+head(df)
+```
+
+
+## Analysing the dataset
+the range of the columns, mean, median, missing values will give an
+insight of the dataset I will work upon.
+```{r}
+#insight
+summary(df)
+
+#structure
+str(df)
+
+#check for missing values
+colSums(is.na(df))
+```
+
+## Creating a linear regression model
+the model will show the relation between the marks scored by a 
+student and the number of hours of study he/she had put in daily.
+
+```{r}
+model<-lm(Scores~Hours, data=df)
+model
+
+```
+## Visualizing the Line od Regression
+to see how our data is distributed around the regression line.
+```{r}
+ggplot(df, aes(Hours, Scores))+geom_point()+stat_smooth(method = lm)+theme_light()
+```
+
+
+## Answer of the question in the task
+we will use the above created model to form the linear equation
+by using the intercept and slope of the model.
+Then replace hours with 9.25 as per the question to get the answer.
+```{r}
+model$coefficients
+
+hrs<-9.25
+scr<-2.484+(9.776*hrs)
+scr
+```
+
+Result:
+If a student studies for 9.25 hours, he/she will score approximately 92.912 ~ 93 marks
+
